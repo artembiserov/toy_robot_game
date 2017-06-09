@@ -41,7 +41,7 @@ describe Robot do
 
     context 'when facing is invalid' do
       it 'raises invalid error' do
-        expect { robot.set_to_table(x: 5, y: 5, facing: 'invalid') }.to raise_error(/Facing is invalid/)
+        expect { robot.set_to_table(x: 5, y: 5, facing: 'invalid') }.to raise_error(/Direction is invalid/)
       end
     end
 
@@ -53,6 +53,35 @@ describe Robot do
   end
 
   describe '#move' do
+    context 'when next place is valid' do
+      before do
+        robot.set_to_table(x: 3, y: 3, facing: 'NORTH')
+      end
+
+      it 'does the movement' do
+        expect { robot.move }.to change { robot.y }.from(3).to(4)
+      end
+
+      it 'does not move to other direction' do
+        expect { robot.move }.not_to change { robot.x }
+      end
+    end
+
+    context 'when next place is invalid' do
+      before do
+        robot.set_to_table(x: 3, y: 4, facing: 'NORTH')
+      end
+
+      it 'raises an error' do
+        expect { robot.move }.to raise_error(/Place is invalid/)
+      end
+    end
+
+    context 'when robot is not active' do
+      it 'raises an error' do
+        expect { robot.move }.to raise_error(/Robot is not active/)
+      end
+    end
   end
 
   describe '#left' do
