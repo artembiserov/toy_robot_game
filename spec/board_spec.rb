@@ -16,4 +16,24 @@ describe Board do
       its(:length) { is_expected.to eq 4 }
     end
   end
+
+  describe "#valid_place?" do
+    context 'when place is within board' do
+      it 'is true' do
+        expect(board.valid_place?(x: 3, y: 3)).to be_truthy
+      end
+    end
+
+    context 'when place is in boarder of board' do
+      it 'is true' do
+        expect(board.valid_place?(x: 4, y: 4)).to be_truthy
+      end
+    end
+
+    context 'when place is outside of board' do
+      it 'is false' do
+        expect(board.valid_place?(x: 5, y: 2)).to be_falsey
+      end
+    end
+  end
 end
