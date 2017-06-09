@@ -45,6 +45,18 @@ class Robot
     self.x, self.y = new_x, new_y
   end
 
+  def left
+    raise StandardError, "Robot is not active" unless active?
+
+    direction.left
+  end
+
+  def right
+    raise StandardError, "Robot is not active" unless active?
+
+    direction.right
+  end
+
   def active?
     @active
   end

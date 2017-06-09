@@ -1,10 +1,18 @@
 class Direction
   VALID_TYPES = %w(NORTH WEST SOUTH EAST).freeze
 
-  attr_reader :facing
+  attr_accessor :facing
 
   def initialize(facing)
     @facing = facing
+  end
+
+  def left
+    change_direction { |index| index + 1 }
+  end
+
+  def right
+    change_direction { |index| index - 1 }
   end
 
   def invalid?
@@ -15,5 +23,13 @@ class Direction
     define_method "#{type.downcase}?" do
       facing == type
     end
+  end
+
+  private
+
+  def change_direction(&block)
+    index = VALID_TYPES.index(facing)
+    next_index = block.call(index) % VALID_TYPES.size
+    self.facing = VALID_TYPES[next_index]
   end
 end
