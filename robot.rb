@@ -57,6 +57,10 @@ class Robot
     direction.right
   end
 
+  def location
+    [x, y, facing]
+  end
+
   def active?
     @active
   end

@@ -108,5 +108,8 @@ describe Robot do
   end
 
   describe '#location' do
+    it 'show current location' do
+      expect(active_robot.location).to eq([3, 4, 'NORTH'])
+    end
   end
 end
