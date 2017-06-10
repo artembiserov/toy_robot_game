@@ -1,4 +1,4 @@
-require_relative '../direction'
+require_relative '../app/direction'
 
 describe Direction do
   let(:direction) { Direction.new(facing) }

@@ -1,5 +1,5 @@
-require_relative './robot'
-require_relative './board'
+require_relative './app/robot'
+require_relative './app/board'
 
 class ToyRobotGame
   attr_reader :robot, :board

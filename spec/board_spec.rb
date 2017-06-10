@@ -1,4 +1,4 @@
-require_relative '../board.rb'
+require_relative '../app/board.rb'
 
 describe Board do
   let(:board) { Board.new }

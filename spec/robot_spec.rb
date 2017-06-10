@@ -1,5 +1,5 @@
-require_relative '../board'
-require_relative '../robot'
+require_relative '../app/board'
+require_relative '../app/robot'
 
 describe Robot do
   subject(:robot) { Robot.new }
