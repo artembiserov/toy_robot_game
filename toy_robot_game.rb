@@ -25,8 +25,7 @@ class ToyRobotGame
           next unless %w(MOVE LEFT RIGHT REPORT).include?(command)
           robot.public_send(command.downcase)
         end
-      rescue => e
-        puts e
+      rescue
       end
     end
   end
