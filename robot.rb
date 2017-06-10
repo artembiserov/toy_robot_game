@@ -17,8 +17,9 @@ class Robot
     raise StandardError, "Board can't be blank" if board.nil?
 
     direction = Direction.new(facing)
-    raise StandardError, "Direction is invalid" if direction.invalid?
-    raise StandardError, "Place is invalid" unless board.valid_place?(x: x, y: y)
+    raise StandardError, 'Direction is invalid' if direction.invalid?
+    check_place(x: x, y: y)
+    raise ArgumentError, 'Coordinates are invalid' if !x.is_a?(Integer) || !y.is_a?(Integer)
 
     @x = x
     @y = y
@@ -27,7 +28,8 @@ class Robot
   end
 
   def move
-    raise StandardError, "Robot is not active" unless active?
+    validate_active
+
     new_x, new_y = x, y
 
     case
@@ -40,19 +42,19 @@ class Robot
     when direction.east?
       new_x += 1
     end
-    raise StandardError, "Place is invalid" unless board.valid_place?(x: new_x, y: new_y)
+    check_place(x: new_x, y: new_y)
 
     self.x, self.y = new_x, new_y
   end
 
   def left
-    raise StandardError, "Robot is not active" unless active?
+    validate_active
 
     direction.left
   end
 
   def right
-    raise StandardError, "Robot is not active" unless active?
+    validate_active
 
     direction.right
   end
@@ -61,11 +63,25 @@ class Robot
     [x, y, facing]
   end
 
+  def report
+    puts location.join(',')
+  end
+
   def active?
     @active
   end
 
   def facing
     direction.facing
+  end
+
+  private
+
+  def validate_active
+    raise StandardError, 'Robot is not active' unless active?
+  end
+
+  def check_place(x:, y:)
+    raise StandardError, 'Place is invalid' unless board.valid_place?(x: x, y: y)
   end
 end

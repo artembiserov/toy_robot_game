@@ -17,7 +17,7 @@ describe Board do
     end
   end
 
-  describe "#valid_place?" do
+  describe '#valid_place?' do
     context 'when place is within board' do
       it 'is true' do
         expect(board.valid_place?(x: 3, y: 3)).to be_truthy
