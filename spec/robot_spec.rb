@@ -7,7 +7,6 @@ describe Robot do
   let(:board) { Board.new }
   let(:active_robot) do
     robot = Robot.new
-    robot.add_to_board(board)
     robot.set_to_table(x: 3, y: 4, facing: 'NORTH')
     robot
   end
@@ -16,26 +15,7 @@ describe Robot do
     its(:active?) { is_expected.to be_falsey }
   end
 
-  describe '#add_to_board' do
-    context 'when board is invalid' do
-      it 'return error' do
-        expect { robot.add_to_board(nil) }.to raise_error(ArgumentError)
-      end
-    end
-
-    context 'when board is valid' do
-      it 'adds robot to the board' do
-        robot.add_to_board(board)
-        expect(robot.board).to eq(board)
-      end
-    end
-  end
-
   describe '#set_to_table' do
-    before do
-      robot.add_to_board(board)
-    end
-
     context 'when it is put to invalid place' do
       it 'raises invalid error' do
         expect { robot.set_to_table(x: 5, y: 5, facing: 'NORTH') }.to raise_error(/Place is invalid/)
@@ -56,10 +36,6 @@ describe Robot do
   end
 
   describe '#move' do
-    before do
-      robot.add_to_board(board)
-    end
-
     context 'when next place is valid' do
       before do
         robot.set_to_table(x: 3, y: 3, facing: 'NORTH')

@@ -4,13 +4,8 @@ class Robot
   attr_reader :board, :direction
   attr_accessor :x, :y
 
-  def initialize(board: nil)
+  def initialize(board: Board.new)
     @active = false
-    @board = board
-  end
-
-  def add_to_board(board)
-    raise ArgumentError unless board.is_a?(Board)
     @board = board
   end
 

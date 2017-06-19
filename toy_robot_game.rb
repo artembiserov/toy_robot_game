@@ -5,8 +5,7 @@ class ToyRobotGame
   attr_reader :robot, :board
 
   def initialize
-    @board = Board.new
-    @robot = Robot.new(board: @board)
+    @robot = Robot.new
   end
 
   def start
