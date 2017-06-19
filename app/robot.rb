@@ -1,8 +1,7 @@
 require_relative './direction'
 
 class Robot
-  attr_reader :board, :direction
-  attr_accessor :x, :y
+  attr_reader :board, :direction, :x, :y
 
   def initialize(board: Board.new)
     @active = false
@@ -39,7 +38,7 @@ class Robot
     end
     board.validate_place!(x: new_x, y: new_y)
 
-    self.x, self.y = new_x, new_y
+    @x, @y = new_x, new_y
   end
 
   def left
