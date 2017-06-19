@@ -19,8 +19,7 @@ class Robot
 
     direction = Direction.new(facing)
     direction.validate!
-    check_place(x: x, y: y)
-    raise ArgumentError, 'Coordinates are invalid' if !x.is_a?(Integer) || !y.is_a?(Integer)
+    board.validate_place!(x: x, y: y)
 
     @x = x
     @y = y
@@ -43,7 +42,7 @@ class Robot
     when direction.east?
       new_x += 1
     end
-    check_place(x: new_x, y: new_y)
+    board.validate_place!(x: new_x, y: new_y)
 
     self.x, self.y = new_x, new_y
   end
@@ -80,9 +79,5 @@ class Robot
 
   def validate_active
     raise StandardError, 'Robot is not active' unless active?
-  end
-
-  def check_place(x:, y:)
-    raise StandardError, 'Place is invalid' unless board.valid_place?(x: x, y: y)
   end
 end

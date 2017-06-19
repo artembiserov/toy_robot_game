@@ -8,6 +8,11 @@ class Board
     @length = length
   end
 
+  def validate_place!(x:, y:)
+    raise ArgumentError, 'Coordinates are invalid' if !x.is_a?(Integer) || !y.is_a?(Integer)
+    raise StandardError, 'Place is invalid' unless valid_place?(x: x, y: y)
+  end
+
   def valid_place?(x:, y:)
     0 <= x && x <= (width - 1) && 0 <= y && y <= (length - 1)
   end
