@@ -67,17 +67,17 @@ describe Robot do
     end
   end
 
-  describe '#left' do
+  describe '#turn_left' do
     it 'changes the direction' do
-      active_robot.left
+      active_robot.turn_left
 
       expect(active_robot.facing).to eq('WEST')
     end
   end
 
-  describe '#rigth' do
+  describe '#turn_rigth' do
     it 'changes the direction' do
-      active_robot.right
+      active_robot.turn_right
 
       expect(active_robot.facing).to eq('EAST')
     end

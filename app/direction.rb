@@ -8,12 +8,12 @@ class Direction
     @value = VALID_TYPES.index(facing)
   end
 
-  def left
+  def turn_left
     @value = (@value + 1) % VALID_TYPES.size
     change_direction!
   end
 
-  def right
+  def turn_right
     @value = (@value - 1) % VALID_TYPES.size
     change_direction!
   end

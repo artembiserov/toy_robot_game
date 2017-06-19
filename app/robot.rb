@@ -1,4 +1,5 @@
 require_relative './direction'
+require_relative './board'
 
 class Robot
   attr_reader :board, :direction, :x, :y
@@ -41,23 +42,23 @@ class Robot
     @x, @y = new_x, new_y
   end
 
-  def left
+  def turn_left
     validate_active
 
-    direction.left
+    direction.turn_left
   end
 
-  def right
+  def turn_right
     validate_active
 
-    direction.right
+    direction.turn_right
   end
 
   def location
     [x, y, facing]
   end
 
-  def report
+  def show_report
     puts location.join(',')
   end
 
