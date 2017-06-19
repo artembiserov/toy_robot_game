@@ -18,7 +18,7 @@ class Robot
     raise StandardError, "Board can't be blank" if board.nil?
 
     direction = Direction.new(facing)
-    raise StandardError, 'Direction is invalid' if direction.invalid?
+    direction.validate!
     check_place(x: x, y: y)
     raise ArgumentError, 'Coordinates are invalid' if !x.is_a?(Integer) || !y.is_a?(Integer)
 

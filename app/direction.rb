@@ -15,8 +15,8 @@ class Direction
     change_direction { |index| index - 1 }
   end
 
-  def invalid?
-    !VALID_TYPES.include?(facing)
+  def validate!
+    raise StandardError, 'Direction is invalid' if invalid?
   end
 
   VALID_TYPES.each do |type|
@@ -31,5 +31,9 @@ class Direction
     index = VALID_TYPES.index(facing)
     next_index = block.call(index) % VALID_TYPES.size
     self.facing = VALID_TYPES[next_index]
+  end
+
+  def invalid?
+    !VALID_TYPES.include?(facing)
   end
 end
