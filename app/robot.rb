@@ -1,7 +1,8 @@
 require_relative './direction'
 
 class Robot
-  attr_accessor :board, :x, :y, :direction
+  attr_reader :board, :direction
+  attr_accessor :x, :y
 
   def initialize(board: nil)
     @active = false
