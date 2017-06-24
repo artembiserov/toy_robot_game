@@ -1,22 +1,25 @@
 class Direction
   VALID_TYPES = %w(NORTH WEST SOUTH EAST).freeze
 
-  attr_accessor :facing
+  attr_reader :facing
 
   def initialize(facing)
     @facing = facing
+    @value = VALID_TYPES.index(facing)
   end
 
-  def left
-    change_direction { |index| index + 1 }
+  def turn_left
+    @value = (@value + 1) % VALID_TYPES.size
+    change_direction!
   end
 
-  def right
-    change_direction { |index| index - 1 }
+  def turn_right
+    @value = (@value - 1) % VALID_TYPES.size
+    change_direction!
   end
 
-  def invalid?
-    !VALID_TYPES.include?(facing)
+  def validate!
+    raise StandardError, 'Direction is invalid' if invalid?
   end
 
   VALID_TYPES.each do |type|
@@ -27,9 +30,11 @@ class Direction
 
   private
 
-  def change_direction(&block)
-    index = VALID_TYPES.index(facing)
-    next_index = block.call(index) % VALID_TYPES.size
-    self.facing = VALID_TYPES[next_index]
+  def change_direction!
+    @facing = VALID_TYPES[@value]
+  end
+
+  def invalid?
+    !VALID_TYPES.include?(facing)
   end
 end

@@ -1,31 +1,23 @@
 require_relative './app/robot'
 require_relative './app/board'
+require_relative './app/command_recognizer'
 
 class ToyRobotGame
   attr_reader :robot, :board
 
   def initialize
-    @board = Board.new
-    @robot = Robot.new(board: @board)
+    @robot = Robot.new
+    @command_recognizer = CommandRecognizer.new(@robot)
   end
 
   def start
-    loop do
-      begin
-        command = gets.chomp
-
-        case command
-        when 'exit'
-          break
-        when /^PLACE/
-          command.match(/^PLACE (\d+),(\d+),(.+)$/) do
-            robot.set_to_table(x: $1.to_i, y: $2.to_i, facing: $3)
-          end
-        else
-          next unless %w(MOVE LEFT RIGHT REPORT).include?(command)
-          robot.public_send(command.downcase)
+    catch :finish_game do
+      loop do
+        begin
+          command = gets.chomp
+          @command_recognizer.call(command)
+        rescue
         end
-      rescue
       end
     end
   end

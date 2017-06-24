@@ -1,15 +1,11 @@
 require_relative './direction'
+require_relative './board'
 
 class Robot
-  attr_accessor :board, :x, :y, :direction
+  attr_reader :board, :direction, :x, :y
 
-  def initialize(board: nil)
+  def initialize(board: Board.new)
     @active = false
-    @board = board
-  end
-
-  def add_to_board(board)
-    raise ArgumentError unless board.is_a?(Board)
     @board = board
   end
 
@@ -17,9 +13,8 @@ class Robot
     raise StandardError, "Board can't be blank" if board.nil?
 
     direction = Direction.new(facing)
-    raise StandardError, 'Direction is invalid' if direction.invalid?
-    check_place(x: x, y: y)
-    raise ArgumentError, 'Coordinates are invalid' if !x.is_a?(Integer) || !y.is_a?(Integer)
+    direction.validate!
+    board.validate_place!(x: x, y: y)
 
     @x = x
     @y = y
@@ -42,28 +37,28 @@ class Robot
     when direction.east?
       new_x += 1
     end
-    check_place(x: new_x, y: new_y)
+    board.validate_place!(x: new_x, y: new_y)
 
-    self.x, self.y = new_x, new_y
+    @x, @y = new_x, new_y
   end
 
-  def left
+  def turn_left
     validate_active
 
-    direction.left
+    direction.turn_left
   end
 
-  def right
+  def turn_right
     validate_active
 
-    direction.right
+    direction.turn_right
   end
 
   def location
     [x, y, facing]
   end
 
-  def report
+  def show_report
     puts location.join(',')
   end
 
@@ -79,9 +74,5 @@ class Robot
 
   def validate_active
     raise StandardError, 'Robot is not active' unless active?
-  end
-
-  def check_place(x:, y:)
-    raise StandardError, 'Place is invalid' unless board.valid_place?(x: x, y: y)
   end
 end

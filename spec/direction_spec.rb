@@ -3,12 +3,12 @@ require_relative '../app/direction'
 describe Direction do
   let(:direction) { Direction.new(facing) }
 
-  describe '#left' do
+  describe '#turn_left' do
     context 'when facing is NORTH' do
       let(:facing) { 'NORTH' }
 
       it 'changes facing to WEST' do
-        expect { direction.left }.to change { direction.facing }.to 'WEST'
+        expect { direction.turn_left }.to change { direction.facing }.to 'WEST'
       end
     end
 
@@ -16,17 +16,17 @@ describe Direction do
       let(:facing) { 'WEST' }
 
       it 'changes facing to SOUTH' do
-        expect { direction.left }.to change { direction.facing }.to 'SOUTH'
+        expect { direction.turn_left }.to change { direction.facing }.to 'SOUTH'
       end
     end
   end
 
-  describe '#right' do
+  describe '#turn_right' do
     context 'when facing is SOUTH' do
       let(:facing) { 'SOUTH' }
 
       it 'changes facing to WEST' do
-        expect { direction.right }.to change { direction.facing }.to 'WEST'
+        expect { direction.turn_right }.to change { direction.facing }.to 'WEST'
       end
     end
 
@@ -34,7 +34,7 @@ describe Direction do
       let(:facing) { 'EAST' }
 
       it 'changes facing to SOUTH' do
-        expect { direction.right }.to change { direction.facing }.to 'SOUTH'
+        expect { direction.turn_right }.to change { direction.facing }.to 'SOUTH'
       end
     end
   end
